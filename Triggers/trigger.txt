@@ -1,0 +1,158 @@
+SQL> create table emp_tab(eno varchar2(5),ename varchar2(20),esal number(10,2),job varchar2(20));
+
+Table created.
+
+SQL> create table emp_new(eno varchar2(5),ename varchar2(20),esal number(10,2),job varchar2(20));
+
+Table created.
+
+SQL> insert into emp_tab values('E01','Revathi',25000,'Manager');
+
+1 row created.
+
+SQL> insert into emp_tab values('E02','Nandu',27000,'HR');
+
+1 row created.
+
+SQL> insert into emp_tab values('E03','Ridha',27000,'HR');
+
+1 row created.
+
+SQL> insert into emp_tab values('E04','Dhilna',22000,'Clerk');
+
+1 row created.
+
+SQL> create table emp_x(eno varchar2(5),ename varchar2(20),esal number(10,2),job varchar2(20));
+
+Table created.
+
+SQL> create table emp_modified(eno varchar2(5),ename varchar2(20),esal number(10,2),job varchar2(20));
+
+Table created.
+
+SQL> insert into emp_tab values('E05','Gopika',22000,'Clerk');
+
+1 row created.
+
+SQL> select * from emp_tab;
+
+ENO   ENAME                      ESAL JOB
+----- -------------------- ---------- --------------------
+E01   Revathi                   25000 Manager
+E02   Nandu                     27000 HR
+E03   Ridha                     27000 HR
+E04   Dhilna                    22000 Clerk
+E05   Gopika                    22000 Clerk
+
+SQL> alter table emp_x add x_date date;
+
+Table altered.
+
+SQL> desc emp_x;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ENO                                                VARCHAR2(5)
+ ENAME                                              VARCHAR2(20)
+ ESAL                                               NUMBER(10,2)
+ JOB                                                VARCHAR2(20)
+ X_DATE                                             DATE
+
+SQL> select * from emp_tab;
+
+ENO   ENAME                      ESAL JOB
+----- -------------------- ---------- --------------------
+E01   Revathi                   25000 Manager
+E02   Nandu                     27000 HR
+E03   Ridha                     27000 HR
+E04   Dhilna                    22000 Clerk
+E05   Gopika                    22000 Clerk
+
+////
+
+keywords:inserting----------(:new.name)
+	 deleting-----------(:old.name)
+	 updating-----------(:old.name)
+
+////
+
+
+SQL> @ e:/Revathi/trigger/trig1.sql
+
+Trigger created.
+
+SQL> delete from emp_tab where eno='E05';
+
+1 row deleted.
+
+SQL> select * from emp_x;
+
+ENO   ENAME                      ESAL JOB                  X_DATE
+----- -------------------- ---------- -------------------- ---------
+E05   Gopika                    22000 Clerk                09-OCT-23
+
+SQL> insert into emp_tab values('E06','Abey',28000,'Manager');
+
+1 row created.
+
+SQL> select * from emp_new;
+
+no rows selected
+
+SQL> select * from emp_x;
+
+ENO   ENAME                      ESAL JOB                  X_DATE
+----- -------------------- ---------- -------------------- ---------
+E05   Gopika                    22000 Clerk                09-OCT-23
+
+SQL> @ e:/Revathi/trigger/trig2.sql
+
+Trigger created.
+
+SQL> delete from emp_tab where eno='E06';
+
+1 row deleted.
+
+SQL> insert into emp_tab values('E06','Abey',28000,'Manager');
+
+1 row created.
+
+SQL> select * from emp_new;
+
+ENO   ENAME                      ESAL JOB
+----- -------------------- ---------- --------------------
+E06   Abey                      28000 Manager
+
+SQL> update emp_tab set esal='30000' where eno='E02';
+
+1 row updated.
+
+SQL> select * from emp_modified;
+
+ENO   ENAME                      ESAL JOB
+----- -------------------- ---------- --------------------
+E02   Nandu                     27000 HR
+
+SQL> @ e:/Revathi/trigger/trig3.sql
+
+Trigger created.
+SQL> insert into emp_tab values('E07','leo',20000,'Clerk');
+
+1 row created.
+
+SQL> select * from emp_new;
+
+ENO   ENAME                      ESAL JOB
+----- -------------------- ---------- --------------------
+E06   Abey                      28000 Manager
+E07   leo                       20000 Clerk
+
+SQL> update emp_tab set esal='30000' where eno='E04';
+
+1 row updated.
+
+SQL> select * from emp_modified;
+
+ENO   ENAME                      ESAL JOB
+----- -------------------- ---------- --------------------
+E02   Nandu                     27000 HR
+E04   Dhilna			30000 Clerk
